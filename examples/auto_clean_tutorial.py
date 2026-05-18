@@ -13,12 +13,25 @@ import arnio as ar
 
 def main():
     raw = pd.DataFrame(
-        {
-            "order_id": [1001, 1002, 1002, 1003, 1004],
-            "customer": [" Ishan ", " Prasoon ", " Prasoon ", " Pranay ", " Dhruv "],
-            "city": [" Paris ", "London", "London", " New York ", " Tokyo "],
-        }
-    )
+    {
+        "order_id": [1001, 1002, 1002, 1003, 1004],
+        "customer": [
+            " Ishan ",
+            " PRASOON ",
+            " Prasoon ",
+            "pranay ",
+            " Dhruv ",
+        ],
+        "city": [
+            " Paris ",
+            "London",
+            " london ",
+            " New York ",
+            " TOKYO ",
+        ],
+        "score": [95, None, 95, 88, None],
+    }
+)
 
     frame = ar.from_pandas(raw)
 
