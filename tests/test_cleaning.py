@@ -8,12 +8,40 @@ from arnio import from_pandas, to_pandas
 
 
 class TestDropNulls:
+    class TestDropNulls:
     def test_drop_all_nulls(self, csv_with_nulls):
         frame = ar.read_csv(csv_with_nulls)
         result = ar.drop_nulls(frame)
         assert result.shape[0] < frame.shape[0]
         # Only Alice and Diana have no nulls
         assert result.shape[0] == 2
+
+
+class TestNormalizeCase:
+    def test_title_mixed_spacing_and_case(self):
+        import pandas as pd
+
+        frame = ar.from_pandas(
+            pd.DataFrame(
+                {
+                    "name": [
+                        "hELLo woRLD",
+                        "mARY jane watSON",
+                    ]
+                }
+            )
+        )
+
+        result = ar.normalize_case(
+            frame,
+            subset=["name"],
+            case_type="title",
+        )
+
+        df = ar.to_pandas(result)
+
+        assert df["name"].iloc[0] == "Hello World"
+        assert df["name"].iloc[1] == "Mary Jane Watson"
 
     def test_drop_nulls_subset(self, csv_with_nulls):
         frame = ar.read_csv(csv_with_nulls)
